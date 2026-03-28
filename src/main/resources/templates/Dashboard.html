@@ -3,11 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-</head>
-<body>
-<h2>Welcome, <span th:text="${name}">User</span>!</h2>
 
-<p>This is your dashboard.</p>
-<a th:href="@{/login}">Logout</a>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<div class="container">
+
+    <h2>Welcome, <span th:text="${name}">User</span></h2>
+
+    <p>This is your dashboard.</p>
+
+    <!-- Proper logout -->
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+
+</div>
 </body>
 </html>
