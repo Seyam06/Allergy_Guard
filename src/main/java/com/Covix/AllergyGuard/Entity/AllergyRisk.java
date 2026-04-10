@@ -14,7 +14,11 @@ public class AllergyRisk {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int risk_id;
 
-    private int person_id;
-    private int allergy_id;
+    @Column(name = "person_id")   // DB column
+    private int personId;         // Java field (camelCase)
+
+    @Column(name = "allergy_id")
+    private int allergyId;
+
     private String risk_level;
 }
