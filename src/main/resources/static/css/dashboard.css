@@ -1,0 +1,531 @@
+:root {
+    --sidebar-bg: #0f172a;
+    --main-bg: #f8fafc;
+    --accent: #0284c7;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --white: #ffffff;
+    --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background-color: var(--main-bg); display: flex; color: var(--text-dark); }
+
+/* Sidebar Layout */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    color: white;
+    padding: 2rem;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand { font-size: 1.5rem; font-weight: 700; margin-bottom: 3rem; color: #38bdf8; }
+.nav-menu { flex-grow: 1; }
+.nav-item {
+    display: block;
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: 0.2s;
+}
+.nav-item.active, .nav-item:hover { background-color: #334155; color: white; }
+
+.user-profile { border-top: 1px solid #334155; padding-top: 1.5rem; }
+.logout-link { color: #f87171; text-decoration: none; font-size: 0.875rem; font-weight: 600; }
+
+/* Main Content area */
+.main-container { margin-left: 280px; padding: 3rem; width: calc(100% - 280px); }
+.page-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+.date-today { color: var(--text-light); margin-bottom: 2rem; }
+
+/* Risk Card */
+.risk-highlight { margin-bottom: 2.5rem; }
+.risk-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem;
+    border-radius: 1.25rem;
+    color: white;
+}
+.risk-high { background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.4); }
+.risk-info h3 { font-size: 1rem; opacity: 0.9; font-weight: 400; }
+.risk-info h2 { font-size: 2.5rem; font-weight: 800; }
+.risk-icon { font-size: 3.5rem; }
+
+/* Grid Cards */
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+.metric-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+}
+.metric-label { color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem; }
+.metric-value { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); }
+.text-danger { color: var(--danger); }
+
+
+/* Symptom Tiles Styles */
+/* --- MODERN SYMPTOM TRACKER UI --- */
+
+.symptom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.tile-content {
+    background: var(--white);
+    border: 2px solid #eef2f6;
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 160px; /* এই লাইনটি সব বক্সের সাইজ সমান রাখবে */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.emoji-wrapper {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.symptom-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* যখন ইউজার সিলেক্ট করবে */
+.symptom-tile input:checked + .tile-content {
+    border-color: var(--accent);
+    background-color: #f0f9ff;
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(2, 132, 199, 0.15);
+}
+
+.symptom-tile input:checked + .tile-content .emoji-wrapper {
+    transform: scale(1.1);
+}
+
+/* --- PROFESSIONAL BUTTONS --- */
+
+.form-actions {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eef2f6;
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0284c7, #0369a1); /* গ্রেডিয়েন্ট বাটন */
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(2, 132, 199, 0.35);
+}
+
+.btn-secondary {
+    background: #f8fafc;
+    color: var(--text-light);
+    border: 1px solid #e2e8f0;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #f1f5f9;
+    color: var(--text-dark);
+}
+/* --- CRITICAL FIX FOR NAVIGATION --- */
+
+/* ১. সব সেকশন ডিফল্টভাবে লুকিয়ে থাকবে */
+.content-section {
+    display: none;
+}
+
+/* ২. শুধুমাত্র যেটিতে active ক্লাস থাকবে সেটি দেখা যাবে */
+.content-section.active {
+    display: block;
+    animation: fadeIn 0.4s ease-out; /* একটি স্মুথ এ্যানিমেশন যোগ করা হলো */
+}
+
+/* ৩. সিম্পল এ্যানিমেশন লজিক */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ৪. বাটন স্টাইলিং (এটি আপনার ফাইলে মিসিং ছিল) */
+.btn-primary {
+    background-color: var(--accent);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0369a1;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+}
+
+/* --- PREMIUM CARE & RECOMMENDATION UI --- */
+
+.gradient-text {
+    background: linear-gradient(90deg, #0f172a, #0284c7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+.care-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.sub-header {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.header-dot.med { background-color: #0ea5e9; box-shadow: 0 0 10px #0ea5e9; }
+.header-dot.doc { background-color: #8b5cf6; box-shadow: 0 0 10px #8b5cf6; }
+
+/* The Core Card Design */
+.care-card {
+    background: var(--white);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04);
+}
+
+.care-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Side Accent Color */
+.card-accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+}
+.med-accent { background: #0ea5e9; }
+.doc-accent { background: #8b5cf6; }
+
+/* Icon Box Design */
+.icon-box, .doc-icon-box {
+    width: 70px;
+    height: 70px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+.med-bg { background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border: 1px solid #bae6fd; }
+.doc-bg { background: linear-gradient(135deg, #f5f3ff, #ede9fe); border: 1px solid #ddd6fe; }
+
+/* Text & Pills */
+.category-pill {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+.med-pill { background: #e0f2fe; color: #0369a1; }
+
+.card-info h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--text-dark); }
+.dosage-info { font-size: 0.95rem; color: var(--text-light); }
+.doc-sub { color: #6d28d9; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; }
+.doc-location { font-size: 0.85rem; color: var(--text-light); margin-bottom: 1.25rem; }
+
+/* Premium Action Button */
+.btn-action {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.25rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-action:hover {
+    box-shadow: 0 6px 15px rgba(139, 92, 246, 0.5);
+    filter: brightness(1.1);
+}
+
+/* --- DOCTOR LOCATOR UI STYLES --- */
+
+.search-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    max-width: 600px;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 0.8rem 1.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+}
+
+.doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.doctor-card {
+    background: var(--white);
+    border-radius: 1.5rem;
+    border: 1px solid #eef2f6;
+    padding: 1.75rem;
+    position: relative;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.doctor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent);
+}
+
+.doctor-status {
+    background: #f0f9ff;
+    color: #0369a1;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+}
+
+.doctor-main {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.doctor-avatar-box {
+    width: 64px;
+    height: 64px;
+    background: #eff6ff;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+}
+.doctor-avatar-box.female { background: #fdf2f8; }
+
+.rating { font-size: 0.8rem; margin-bottom: 0.25rem; }
+.rating span { color: var(--text-light); margin-left: 0.5rem; font-weight: 600; }
+
+.doctor-info h3 { font-size: 1.25rem; color: var(--text-dark); margin-bottom: 0.2rem; }
+.specialty { color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+
+.hospital-details {
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.hospital-details p { font-size: 0.875rem; color: var(--text-dark); margin-bottom: 0.4rem; }
+.availability { color: #15803d !important; font-weight: 600; font-size: 0.8rem !important; }
+
+.card-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-outline {
+    flex-grow: 1;
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-outline:hover { background: #f8fafc; color: var(--text-dark); border-color: #cbd5e1; }
+
+
+
+/* --- MODERN MEDICAL HISTORY UI --- */
+
+.history-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.stat-item {
+    background: var(--white);
+    padding: 1.25rem 2rem;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label { font-size: 0.85rem; color: var(--text-light); font-weight: 500; }
+.stat-count { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+
+/* Timeline UI */
+.timeline-container {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e2e8f0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px #e2e8f0;
+    z-index: 2;
+}
+
+.marker-high { background-color: var(--danger); }
+.marker-low { background-color: #10b981; }
+
+.log-date {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.log-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #eef2f6;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.log-header h3 { font-size: 1.1rem; color: var(--text-dark); }
+
+.risk-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.risk-badge.high { background: #fee2e2; color: #dc2626; }
+.risk-badge.low { background: #dcfce7; color: #15803d; }
+
+.log-details { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem; line-height: 1.5; }
+
+.log-footer {
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+}

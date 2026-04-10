@@ -1,25 +1,263 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
-
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <script th:src="@{/js/app.js}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Allergy Guard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-<div class="container">
+<aside class="sidebar">
+    <div class="brand">🛡️ Allergy Guard</div>
+    <nav class="nav-menu">
+        <a href="javascript:void(0)" class="nav-item active" onclick="showSection('dashboard', this)">🏠 Dashboard</a>
+        <a href="javascript:void(0)" class="nav-item" onclick="showSection('symptoms', this)">🤒 Symptom Tracker</a>
+        <a href="javascript:void(0)" class="nav-item" onclick="showSection('recommendation', this)">💊 Suggestions</a>
+        <a href="javascript:void(0)" class="nav-item" onclick="showSection('doctors', this)">🏥 Find Doctors</a>
+        <a href="javascript:void(0)" class="nav-item" onclick="showSection('history', this)">📜 Medical History</a>
+    </nav>
+    <div class="user-profile">
+        <p>Welcome, <strong th:text="${name}">User</strong></p>
+        <a href="/login" class="logout-link">Log Out</a>
+    </div>
+</aside>
 
-    <h2>Welcome, <span th:text="${name}">User</span></h2>
+<main class="main-container">
 
-    <p>This is your dashboard.</p>
+    <section id="dashboard" class="content-section active">
+        <header class="page-header">
+            <h1>Daily Risk Overview</h1>
+            <p class="date-today" id="current-date"></p>
+        </header>
 
-    <!-- Proper logout -->
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+        <div class="risk-highlight">
+            <div class="risk-card risk-high">
+                <div class="risk-info">
+                    <h3>Current Allergy Risk Level</h3>
+                    <h2 id="risk-status">High Risk</h2>
+                </div>
+                <div class="risk-icon">⚠️</div>
+            </div>
+        </div>
 
-</div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <span class="metric-label">Temperature</span>
+                <span class="metric-value">28°C</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-label">Humidity</span>
+                <span class="metric-value">72%</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-label">Pollen Level</span>
+                <span class="metric-value text-danger">Severe</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-label">Air Quality Index</span>
+                <span class="metric-value">158 AQI</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="symptoms" class="content-section">
+        <header class="page-header">
+            <h1>Symptom Tracker</h1>
+            <p>Select the symptoms you are currently experiencing.</p>
+        </header>
+
+        <form id="symptom-entry-form" class="symptom-form">
+            <div class="symptom-grid">
+                <label class="symptom-tile">
+                    <input type="checkbox" name="symptoms" value="sneezing" hidden>
+                    <div class="tile-content">
+                        <div class="emoji-wrapper">🤧</div>
+                        <p class="symptom-name">Sneezing</p>
+                    </div>
+                </label>
+
+                <label class="symptom-tile">
+                    <input type="checkbox" name="symptoms" value="itching" hidden>
+                    <div class="tile-content">
+                        <div class="emoji-wrapper">😣</div>
+                        <p class="symptom-name">Itching</p>
+                    </div>
+                </label>
+
+                <label class="symptom-tile">
+                    <input type="checkbox" name="symptoms" value="skin-rash" hidden>
+                    <div class="tile-content">
+                        <div class="emoji-wrapper">🔴</div>
+                        <p class="symptom-name">Skin Rash</p>
+                    </div>
+                </label>
+
+                <label class="symptom-tile">
+                    <input type="checkbox" name="symptoms" value="breathing" hidden>
+                    <div class="tile-content">
+                        <div class="emoji-wrapper">🫁</div>
+                        <p class="symptom-name">Breathing Issues</p>
+                    </div>
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-primary" onclick="processSymptoms()">Save & Analyze Risk</button>
+                <button type="reset" class="btn-primary">Clear All</button>
+            </div>
+        </form>
+    </section>
+
+    <section id="recommendation" class="content-section">
+        <header class="page-header">
+            <h1 class="gradient-text">Personalized Care Plan</h1>
+            <p>Expert insights and remedies tailored for your comfort.</p>
+        </header>
+
+        <div class="care-grid">
+            <div class="care-column">
+                <h2 class="sub-header"><span class="header-dot med"></span> Suggested Medicines</h2>
+                <div id="medicine-list" class="suggestion-list">
+                    <div class="care-card med-card-style">
+                        <div class="card-accent med-accent"></div>
+                        <div class="icon-box med-bg">💊</div>
+                        <div class="card-info">
+                            <span class="category-pill med-pill">Antihistamine</span>
+                            <h3>Fexofenadine (Fexo)</h3>
+                            <p class="dosage-info"><strong>Dosage:</strong> 120mg once daily after meal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="care-column">
+                <h2 class="sub-header"><span class="header-dot doc"></span> Specialist Doctors</h2>
+                <div id="doctor-list" class="suggestion-list">
+                    <div class="care-card doc-card-style">
+                        <div class="card-accent doc-accent"></div>
+                        <div class="doc-icon-box doc-bg">👨‍⚕️</div>
+                        <div class="card-info">
+                            <h3>Dr. Ahmed Ullah</h3>
+                            <p class="doc-sub">Allergy & Immunology Specialist</p>
+                            <p class="doc-location">📍 Dhaka Medical College Hospital</p>
+                            <button class="btn-action">Book Appointment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="doctors" class="content-section">
+        <header class="page-header">
+            <h1 class="gradient-text">Specialist Doctors</h1>
+            <p>Find and connect with top-rated allergy specialists and hospitals near you</p>
+
+            <div class="search-container">
+                <input type="text" placeholder="Search by name or area..." class="search-input">
+                <button class="btn-primary">🔍 Search</button>
+            </div>
+        </header>
+
+        <div class="doctor-grid">
+            <div class="doctor-card">
+                <div class="doctor-status">Verified Specialist</div>
+                <div class="doctor-main">
+                    <div class="doctor-avatar-box">👨‍⚕️</div>
+                    <div class="doctor-info">
+                        <div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+                        <h3>Dr. Abul Hossian Khan</h3>
+                        <p class="specialty">Allergy & Clinical Immunology</p>
+                    </div>
+                </div>
+                <div class="hospital-details">
+                    <p>📍 <strong>Dhaka Medical Hospital</strong></p>
+                    <p class="availability">Available: Sat - Wed (05:00 PM - 08:00 PM)</p>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-action">Book Appointment</button> <button class="btn-action">View Profile</button>
+                </div>
+            </div>
+
+            <div class="doctor-card">
+                <div class="doctor-status">Highly Rated</div>
+                <div class="doctor-main">
+                    <div class="doctor-avatar-box female">👩‍⚕️</div>
+                    <div class="doctor-info">
+                        <div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+                        <h3>Dr. Sarah Rahman</h3>
+                        <p class="specialty">Pediatric Allergy Specialist</p>
+                    </div>
+                </div>
+                <div class="hospital-details">
+                    <p>📍 <strong>Combined Military Hospital (CMH)</strong></p>
+                    <p class="availability">Available: Mon - Thu (09:00 AM - 12:00 PM)</p>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-action">Book Appointment</button>
+                    <button class="btn-action">View Profile</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="history" class="content-section">
+        <header class="page-header">
+            <h1 class="gradient-text">Medical History</h1>
+            <p>Review your past allergy incidents and identifying patterns over time.</p>
+        </header>
+
+        <div class="history-stats">
+            <div class="stat-item">
+                <span class="stat-label">Total Records</span>
+                <span class="stat-count">12</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Primary Trigger</span>
+                <span class="stat-count">Pollen</span>
+            </div>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-marker high-risk"></div>
+                <div class="timeline-content">
+                    <div class="log-date">April 05, 2026</div>
+                    <div class="log-card">
+                        <div class="log-header">
+                            <h3>Sneezing & Skin Rash</h3>
+                            <span class="risk-badge high">High Risk</span>
+                        </div>
+                        <p class="log-details">Environment: 32°C, 80% Humidity, High Pollen.</p>
+                        <div class="log-footer">
+                            <span>💊 Fexo 120mg</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker low-risk"></div>
+                <div class="timeline-content">
+                    <div class="log-date">March 28, 2026</div>
+                    <div class="log-card">
+                        <div class="log-header">
+                            <h3>Mild Itching</h3>
+                            <span class="risk-badge low">Low Risk</span>
+                        </div>
+                        <p class="log-details">Environment: 25°C, 60% Humidity, Low Pollen.</p>
+                        <div class="log-footer">
+                            <span>💧 General Care</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script src="/js/dashboard.js"></script>
 </body>
 </html>
