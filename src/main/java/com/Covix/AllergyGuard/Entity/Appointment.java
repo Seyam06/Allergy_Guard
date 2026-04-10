@@ -1,9 +1,7 @@
 package com.Covix.AllergyGuard.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "appointment")
@@ -13,12 +11,12 @@ import lombok.NoArgsConstructor;
 public class Appointment {
 
     @Id
-    private Long id;
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int appointment_id;
 
     private int person_id;
     private int doctor_id;
+
     private String appointment_date;
+    private String status;
 }

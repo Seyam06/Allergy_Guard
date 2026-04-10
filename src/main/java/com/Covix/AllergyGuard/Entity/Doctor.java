@@ -1,9 +1,7 @@
 package com.Covix.AllergyGuard.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "doctor")
@@ -12,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Doctor {
 
-    @Id
-    private Long id;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doctor_id;

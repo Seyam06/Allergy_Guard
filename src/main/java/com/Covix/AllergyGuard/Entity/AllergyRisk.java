@@ -15,8 +15,6 @@ public class AllergyRisk {
     private int risk_id;
 
     private int person_id;
-    private int weather_id;
+    private int allergy_id;
     private String risk_level;
-
-    private java.sql.Date prediction_date;
 }
