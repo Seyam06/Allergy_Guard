@@ -1,20 +1,26 @@
 package com.Covix.AllergyGuard.Entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 @Entity
-@Table(name = "medicine")
+@Table(name = "medicines")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Medicine {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int medicine_id;
+    @Column(name = "medicine_id")
+    private int medicineId;
 
-    private String medicine_name;
+    @Column(name = "medicine_name")
+    private String medicineName;
+
+    private String category;
     private String dosage;
-    private String side_effects;
+
+    @Column(name = "target_risk")
+    private String targetRisk;
+
+    @Column(name = "target_symptom")
+    private String targetSymptom;
 }

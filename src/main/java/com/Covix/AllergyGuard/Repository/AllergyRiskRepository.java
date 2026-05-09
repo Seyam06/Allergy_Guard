@@ -1,10 +1,14 @@
 package com.Covix.AllergyGuard.Repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.Covix.AllergyGuard.Entity.AllergyRisk;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
+@Repository
 public interface AllergyRiskRepository extends JpaRepository<AllergyRisk, Integer> {
 
-    List<AllergyRisk> findByPersonId(int person_id);
+
+    Optional<AllergyRisk> findFirstByPersonIdOrderByRiskIdDesc(int personId);
 }

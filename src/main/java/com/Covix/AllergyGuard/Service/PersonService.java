@@ -1,10 +1,9 @@
 package com.Covix.AllergyGuard.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.Covix.AllergyGuard.Entity.Person;
 import com.Covix.AllergyGuard.Repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService {
@@ -13,15 +12,18 @@ public class PersonService {
     private PersonRepository repo;
 
     public String register(Person p) {
+        if (repo.findByEmail(p.getEmail()) != null) {
+            return "Email already exists!";
+        }
         repo.save(p);
-        return "Registered";
+        return "Success";
     }
 
     public Person login(String email, String password) {
         Person p = repo.findByEmail(email);
-        if (p != null && password.equals(p.getPassword())) {
-            return p; // login success
+        if (p != null && p.getPassword().equals(password)) {
+            return p;
         }
-        return null; // login failed
+        return null;
     }
 }

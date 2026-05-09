@@ -1,14 +1,9 @@
 package com.Covix.AllergyGuard.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "person")
@@ -19,10 +14,14 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "person_id")
     private int person_id;
 
     private String name;
     private Integer age;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
     private String password;
 }

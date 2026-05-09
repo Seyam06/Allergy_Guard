@@ -31,32 +31,30 @@
             <p class="date-today" id="current-date"></p>
         </header>
 
-        <div class="risk-highlight">
-            <div class="risk-card risk-high">
-                <div class="risk-info">
-                    <h3>Current Allergy Risk Level</h3>
-                    <h2 id="risk-status">High Risk</h2>
-                </div>
-                <div class="risk-icon">⚠️</div>
+        <div class="risk-card" th:classappend="${riskStatus == 'HIGH'} ? 'risk-high' : 'risk-low'">
+            <div class="risk-info">
+                <h3>Current Allergy Risk Level</h3>
+                <h2 id="risk-status" th:text="${riskStatus + ' Risk'}">High Risk</h2>
             </div>
+            <div class="risk-icon" th:text="${riskStatus == 'HIGH'} ? '⚠️' : '✅'">⚠️</div>
         </div>
 
         <div class="metrics-grid">
             <div class="metric-card">
                 <span class="metric-label">Temperature</span>
-                <span class="metric-value">28°C</span>
+                <span class="metric-value" id="temp-val">--°C</span>
             </div>
             <div class="metric-card">
                 <span class="metric-label">Humidity</span>
-                <span class="metric-value">72%</span>
+                <span class="metric-value" id="hum-val">--%</span>
             </div>
             <div class="metric-card">
                 <span class="metric-label">Pollen Level</span>
-                <span class="metric-value text-danger">Severe</span>
+                <span class="metric-value" id="pollen-val">--</span>
             </div>
             <div class="metric-card">
                 <span class="metric-label">Air Quality Index</span>
-                <span class="metric-value">158 AQI</span>
+                <span class="metric-value" id="aqi-val">-- AQI</span>
             </div>
         </div>
     </section>
@@ -219,7 +217,7 @@
             </div>
         </div>
 
-        <div class="timeline-container">
+        <div class="timeline-container" id="history-timeline">
             <div class="timeline-item">
                 <div class="timeline-marker high-risk"></div>
                 <div class="timeline-content">

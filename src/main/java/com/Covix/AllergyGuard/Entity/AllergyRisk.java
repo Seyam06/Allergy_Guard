@@ -1,24 +1,29 @@
 package com.Covix.AllergyGuard.Entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+
+import java.sql.Date;
 
 @Entity
-@Table(name = "allergy_risk")
+@Table(name = "Allergy_Risk")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class AllergyRisk {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int risk_id;
+    @Column(name = "risk_id")
+    private int riskId;
 
-    @Column(name = "person_id")   // DB column
-    private int personId;         // Java field (camelCase)
+    @Column(name = "person_id")
+    private int personId;
 
-    @Column(name = "allergy_id")
-    private int allergyId;
+    @Column(name = "weather_id")
+    private int weatherId;
 
-    private String risk_level;
+    @Column(name = "risk_level")
+    private String riskLevel;
+
+    @Column(name = "prediction_date")
+    private Date predictionDate;
 }

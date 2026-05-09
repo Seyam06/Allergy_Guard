@@ -55,6 +55,21 @@ body { font-family: 'Inter', sans-serif; background-color: var(--main-bg); displ
     color: white;
 }
 .risk-high { background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.4); }
+.risk-low {
+    background-color: #ecfdf5 !important;
+    border: 2px solid #10b981 !important;
+    color: #064e3b !important;
+}
+
+.risk-low h3,
+.risk-low h2 {
+    color: #064e3b !important;
+}
+
+
+.risk-low .risk-icon {
+    color: #10b981 !important;
+}
 .risk-info h3 { font-size: 1rem; opacity: 0.9; font-weight: 400; }
 .risk-info h2 { font-size: 2.5rem; font-weight: 800; }
 .risk-icon { font-size: 3.5rem; }
@@ -113,7 +128,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--main-bg); displ
     line-height: 1.3;
 }
 
-/* যখন ইউজার সিলেক্ট করবে */
+
 .symptom-tile input:checked + .tile-content {
     border-color: var(--accent);
     background-color: #f0f9ff;
@@ -169,24 +184,20 @@ body { font-family: 'Inter', sans-serif; background-color: var(--main-bg); displ
 }
 /* --- CRITICAL FIX FOR NAVIGATION --- */
 
-/* ১. সব সেকশন ডিফল্টভাবে লুকিয়ে থাকবে */
 .content-section {
     display: none;
 }
-
-/* ২. শুধুমাত্র যেটিতে active ক্লাস থাকবে সেটি দেখা যাবে */
 .content-section.active {
     display: block;
-    animation: fadeIn 0.4s ease-out; /* একটি স্মুথ এ্যানিমেশন যোগ করা হলো */
+    animation: fadeIn 0.4s ease-out;
 }
 
-/* ৩. সিম্পল এ্যানিমেশন লজিক */
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ৪. বাটন স্টাইলিং (এটি আপনার ফাইলে মিসিং ছিল) */
 .btn-primary {
     background-color: var(--accent);
     color: white;
